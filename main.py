@@ -64,6 +64,18 @@ def listarNumerado(lista):
         i += 1
     return True
 
+'''    
+ def listarNumeradoCompleto(lista):
+    if not lista:
+        print("\n--- Nenhum aluno cadastrado ---")
+        return False
+    i = 1
+    for e in lista:
+        print(f"{i}. {e[0]}. nota = {e[4]")
+        i += 1
+    return True
+'''
+
 def listarRecuperacao(lista):
     
     lista_recuperacao = []
@@ -87,6 +99,12 @@ def calcular_nota_recuperacao(media_semestre, media_minima=7.0):
     # Garante que a nota esteja no intervalo válido
     return max(0, min(10, nota_necessaria))
 
+def ordenar_pela_nota(lista):
+    # O lambda diz ao Python: "para cada aluno, use o elemento no índice 4 como chave"
+    # reverse=True é opcional, use se quiser da maior para a menor nota
+    return sorted(lista, key=lambda aluno: aluno[4], reverse=True)
+        
+        
 
 
 # --- LOOP PRINCIPAL ---
@@ -100,6 +118,7 @@ while True:
     print("5- Estatísticas da turma")
     print("6- Alunos em recuperacao")
     print("7- Simular nota de recuperacao")
+    print("8- Ordernar pela nota")
 
 
     try:
@@ -165,7 +184,7 @@ while True:
             print(quantidade_por_situacao(alunos))
             print(f"taxa de aprovados {taxa_aprovados(alunos):.2f}%")
 
-    elif op ==6:
+    elif op == 6:
         print("alunos em recuperacao: ")
         print(listarRecuperacao(alunos))
 
@@ -198,10 +217,16 @@ while True:
             except ValueError:
                 print("Por favor, digite um número inteiro.")
 
-
-
-
-
-
+    elif op == 8:
+        if not alunos:
+            print("\nLista vazia.")
+        else:
+            print(f"\n{'Nome':<15} | {'Média':<6} ")
+            print("-" * 40)
+            ordenado = ordenar_pela_nota(alunos)
+            for a in ordenado:
+                print(f"{a[0]:<15} | {a[4]:<6.2f} ")
+        
+        
     else:
         print("Opção inválida!")
