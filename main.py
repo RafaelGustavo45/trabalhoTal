@@ -134,11 +134,11 @@ while True:
             while True:
                 try:
                     faltas = int(input("Digite o total de faltas (Total de 20 aulas): "))
-                    if faltas >= 0:
+                    if 0 <= faltas <= 20: 
                         aluno['faltas'] = faltas
                         break
                     else:
-                        print("O número de faltas não pode ser negativo.")
+                        print("O número de faltas não é válido.")
                 except ValueError:
                     print("Entrada inválida! Digite um número inteiro.")
 
@@ -156,7 +156,7 @@ while True:
             print("-" * 75)
             for a in list(alunos):
                 if a['situacao'] == "Pendente":
-                    print(f"{a['nome']:<15} | {'-':<6} | {'-':<6} | {'-':<6} | {'-':<6.1f} | {a['faltas']:<6} | {a['situacao']}")
+                    print(f"{a['nome']:<15} | {'-':<6} | {'-':<6} | {'-':<6} | {'-':<6} | {a['faltas']:<6} | {a['situacao']}")
                 else:
                     print(f"{a['nome']:<15} | {a['notas'][0]:<6.1f} | {a['notas'][1]:<6.1f} | {a['notas'][2]:<6.1f} | {a['media']:<6.1f} | {a['faltas']:<6} | {a['situacao']}")
 
@@ -167,7 +167,7 @@ while True:
         if pendentes:
             print("\n[AVISO]: Os seguintes alunos não possuem 3 notas e serão ignorados nas estatísticas:")
             for p in pendentes:
-                print(f"- {p['name']}")
+                print(f"- {p['nome']}")
         
         validos = [a for a in alunos if a['situacao'] != "Pendente"]
         if not validos:
